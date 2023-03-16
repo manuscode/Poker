@@ -33,4 +33,26 @@ class FlushComparatorTest {
 
         assertThat(result).isEqualTo(0);
     }
+
+    @Test
+    void compare_shouldReturnWinForFirstHand_whenOnlyFirstHandIsFlush() {
+        var firstHand = createHand(
+                new Card(CLUBS, ACE),
+                new Card(CLUBS, TEN),
+                new Card(CLUBS, JACK),
+                new Card(CLUBS, SEVEN),
+                new Card(CLUBS, JACK)
+        );
+        var secondHand = createHand(
+                new Card(DIAMONDS, TWO),
+                new Card(SPADES, JACK),
+                new Card(HEARTS, SIX),
+                new Card(DIAMONDS, EIGHT),
+                new Card(SPADES, QUEEN)
+        );
+
+        var result = testee.compare(firstHand, secondHand);
+
+        assertThat(result).isEqualTo(1);
+    }
 }
