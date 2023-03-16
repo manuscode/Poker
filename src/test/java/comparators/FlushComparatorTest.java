@@ -3,8 +3,9 @@ package comparators;
 import model.Card;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 
+import static comparators.ComparisonResult.*;
 import static model.CardSuit.*;
 import static model.CardValue.*;
 import static model.Hand.createHand;
@@ -38,7 +39,7 @@ class FlushComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(0);
+        assertThat(result).isEqualTo(TIE);
     }
 
     @Test
@@ -60,7 +61,7 @@ class FlushComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(1);
+        assertThat(result).isEqualTo(FIRST_HAND_WINS);
     }
 
     @Test
@@ -82,19 +83,12 @@ class FlushComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(-1);
+        assertThat(result).isEqualTo(SECOND_HAND_WINS);
     }
 
     @ParameterizedTest
-    @CsvSource({
-            "1 , 1",
-            "-1, -1",
-            "0 , 0"
-    })
-    void compare_shouldReturnWinnerOfHighCard_whenBothHandsAreFlush(
-            int winnerOfHighCard,
-            int expectedWinner
-    ) {
+    @EnumSource(value = ComparisonResult.class)
+    void compare_shouldReturnWinnerOfHighCard_whenBothHandsAreFlush(ComparisonResult winnerOfHighCard) {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(CLUBS, JACK),
@@ -114,6 +108,6 @@ class FlushComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(expectedWinner);
+        assertThat(result).isEqualTo(winnerOfHighCard);
     }
 }

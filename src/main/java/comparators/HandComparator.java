@@ -4,6 +4,6 @@ import model.Hand;
 
 public interface HandComparator {
 
-    int compare(Hand firstHand, Hand secondHand);
+    ComparisonResult compare(Hand firstHand, Hand secondHand);
 
 }

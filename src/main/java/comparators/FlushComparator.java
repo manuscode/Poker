@@ -3,7 +3,8 @@ package comparators;
 import lombok.AllArgsConstructor;
 import model.Hand;
 
-import static utils.HandUtil.getCardsBySuit;
+import static comparators.ComparisonResult.*;
+import static utils.HandUtil.allCardsHaveSameSuit;
 
 @AllArgsConstructor
 public class FlushComparator implements HandComparator {
@@ -11,23 +12,20 @@ public class FlushComparator implements HandComparator {
     private final HighCardComparator highCardComparator;
 
     @Override
-    public int compare(Hand firstHand, Hand secondHand) {
-        var firstHandCardsBySuitMap = getCardsBySuit(firstHand);
-        var secondHandCardsBySuitMap = getCardsBySuit(secondHand);
+    public ComparisonResult compare(Hand firstHand, Hand secondHand) {
+        var firstHandIsFlush = allCardsHaveSameSuit(firstHand);
+        var secondHandIsFlush = allCardsHaveSameSuit(secondHand);
 
-        var firstHandIsFlush = firstHandCardsBySuitMap.size() == 1;
-        var secondHandIsFlush = secondHandCardsBySuitMap.size() == 1;
-
-        if(firstHandIsFlush && secondHandIsFlush) {
+        if (firstHandIsFlush && secondHandIsFlush) {
             return highCardComparator.compare(firstHand, secondHand);
         }
         if (firstHandIsFlush) {
-            return 1;
+            return FIRST_HAND_WINS;
         }
         if (secondHandIsFlush) {
-            return -1;
+            return SECOND_HAND_WINS;
         }
 
-        return 0;
+        return TIE;
     }
 }
