@@ -2,15 +2,22 @@ package comparators;
 
 import model.Card;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static model.CardSuit.*;
 import static model.CardValue.*;
 import static model.Hand.createHand;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class FlushComparatorTest {
 
-    private final FlushComparator testee = new FlushComparator();
+    private final HighCardComparator highCardComparator = mock(HighCardComparator.class);
+
+    private final FlushComparator testee = new FlushComparator(highCardComparator);
 
     @Test
     void compare_shouldReturnTie_whenBothHandsAreNotFlush() {
@@ -54,5 +61,59 @@ class FlushComparatorTest {
         var result = testee.compare(firstHand, secondHand);
 
         assertThat(result).isEqualTo(1);
+    }
+
+    @Test
+    void compare_shouldReturnWinForSecondHand_whenOnlySecondHandIsFlush() {
+        var firstHand = createHand(
+                new Card(DIAMONDS, TWO),
+                new Card(SPADES, JACK),
+                new Card(HEARTS, SIX),
+                new Card(DIAMONDS, EIGHT),
+                new Card(SPADES, QUEEN)
+        );
+        var secondHand = createHand(
+                new Card(CLUBS, ACE),
+                new Card(CLUBS, TEN),
+                new Card(CLUBS, JACK),
+                new Card(CLUBS, SEVEN),
+                new Card(CLUBS, JACK)
+        );
+
+        var result = testee.compare(firstHand, secondHand);
+
+        assertThat(result).isEqualTo(-1);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1 , 1",
+            "-1, -1",
+            "0 , 0"
+    })
+    void compare_shouldReturnWinnerOfHighCard_whenBothHandsAreFlush(
+            int winnerOfHighCard,
+            int expectedWinner
+    ) {
+        var firstHand = createHand(
+                new Card(CLUBS, ACE),
+                new Card(CLUBS, JACK),
+                new Card(CLUBS, SIX),
+                new Card(CLUBS, EIGHT),
+                new Card(CLUBS, QUEEN)
+        );
+        var secondHand = createHand(
+                new Card(SPADES, TWO),
+                new Card(SPADES, TEN),
+                new Card(SPADES, JACK),
+                new Card(SPADES, SEVEN),
+                new Card(SPADES, JACK)
+        );
+
+        when(highCardComparator.compare(eq(firstHand), eq(secondHand))).thenReturn(winnerOfHighCard);
+
+        var result = testee.compare(firstHand, secondHand);
+
+        assertThat(result).isEqualTo(expectedWinner);
     }
 }
