@@ -8,6 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static comparators.ComparisonResult.*;
 import static model.CardSuit.*;
@@ -127,10 +128,38 @@ class HighCardComparatorTest {
         assertThat(result).isEqualTo(expectedResult);
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "ACE, ACE, TIE",
+            "ACE, TEN, FIRST_HAND_WIN",
+            "TEN, ACE, SECOND_HAND_WIN",
+            "'TEN,JACK,TWO'   , 'JACK,JACK,KING' , SECOND_HAND_WIN",
+            "'TEN,TEN,TEN,TEN', 'TEN,TEN,TEN,ACE', SECOND_HAND_WIN",
+    })
+    void compareValueLists_shouldWork_whenListSizeIsNotFive(
+            String firstValues,
+            String secondValues,
+            ComparisonResult expectedResult
+    ) {
+        var firstValueList = createValueListFromStringCardValues(firstValues);
+        var secondValueList = createValueListFromStringCardValues(secondValues);
+
+        var result = testee.compareValueLists(firstValueList, secondValueList);
+
+        assertThat(result).isEqualTo(expectedResult);
+    }
+
     private Hand createHandFromStringCardValues(String cardValues) {
-        return new Hand(Arrays.stream(cardValues.split(","))
-                .map(CardValue::valueOf)
+        return new Hand(createValueListFromStringCardValues(cardValues).stream()
                 .map(cardValue -> new Card(DIAMONDS, cardValue))
                 .toList());
     }
+
+    private List<CardValue> createValueListFromStringCardValues(String cardValues) {
+        return Arrays.stream(cardValues.split(","))
+                .map(CardValue::valueOf)
+                .toList();
+    }
+
+
 }
