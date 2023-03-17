@@ -115,7 +115,7 @@ class HighCardComparatorTest {
             "'FOUR,FOUR,THREE,THREE,TWO', 'FOUR,FOUR,THREE,TWO,TWO'  , FIRST_HAND_WIN",
             "'FOUR,FOUR,SIX,THREE,THREE', 'FIVE,FIVE,FOUR,FOUR,TWO'  , FIRST_HAND_WIN",
     })
-    void compare_shouldDetermineWinnerCorrecly(
+    void compare_shouldReturnTheCorrectResult(
             String firstCardValues,
             String secondCardValues,
             ComparisonResult expectedResult
@@ -131,12 +131,28 @@ class HighCardComparatorTest {
     @ParameterizedTest
     @CsvSource({
             "ACE, ACE, TIE",
+            "THREE, TWO, FIRST_HAND_WIN",
+            "TEN, JACK, SECOND_HAND_WIN",
+    })
+    void compareValues_shouldReturnSecondHandWin_whenAllValuesAreEqualButTheLastOfSecondHandIsHigher(
+            CardValue firstValue,
+            CardValue secondValue,
+            ComparisonResult expectedResult
+    ) {
+        var result = testee.compareValues(firstValue, secondValue);
+
+        assertThat(result).isEqualTo(expectedResult);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "ACE, ACE, TIE",
             "ACE, TEN, FIRST_HAND_WIN",
             "TEN, ACE, SECOND_HAND_WIN",
             "'TEN,JACK,TWO'   , 'JACK,JACK,KING' , SECOND_HAND_WIN",
             "'TEN,TEN,TEN,TEN', 'TEN,TEN,TEN,ACE', SECOND_HAND_WIN",
     })
-    void compareValueLists_shouldWork_whenListSizeIsNotFive(
+    void compareValueLists_shouldReturnCorrectResult_whenListSizeIsNotFive(
             String firstValues,
             String secondValues,
             ComparisonResult expectedResult

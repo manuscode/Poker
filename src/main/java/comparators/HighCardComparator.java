@@ -24,6 +24,13 @@ public class HighCardComparator implements HandComparator {
         return compareValueLists(firstHandValueList, secondHandValueList);
     }
 
+    public ComparisonResult compareValues(CardValue firstValue, CardValue secondValue) {
+        var firstHandSortedValueList = List.of(firstValue);
+        var secondHandSortedValueList = List.of(secondValue);
+
+        return compareSortedValueLists(firstHandSortedValueList, secondHandSortedValueList);
+    }
+
     public ComparisonResult compareValueLists(List<CardValue> firstHandValueList, List<CardValue> secondHandValueList) {
         var firstHandSortedValueList = sortedValueListByRank(firstHandValueList);
         var secondHandSortedValueList = sortedValueListByRank(secondHandValueList);
