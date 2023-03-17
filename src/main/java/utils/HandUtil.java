@@ -5,7 +5,6 @@ import model.CardSuit;
 import model.CardValue;
 import model.Hand;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,10 +13,13 @@ import static java.util.Comparator.comparingInt;
 
 public class HandUtil {
 
-    public static List<Card> getCardsExceptOfValues(Hand hand, CardValue... cardValues) {
-        var cardValueFilterSet = Arrays.stream(cardValues).collect(Collectors.toSet());
+    public static List<Card> getCardsExceptOfValue(Hand hand, CardValue cardValue) {
+       return getCardsExceptOfValues(hand, List.of(cardValue));
+    }
+
+    public static List<Card> getCardsExceptOfValues(Hand hand, List<CardValue> cardValueList) {
         return hand.getCardList().stream()
-                .filter(card -> !cardValueFilterSet.contains(card.getValue()))
+                .filter(card -> !cardValueList.contains(card.getValue()))
                 .toList();
     }
 
