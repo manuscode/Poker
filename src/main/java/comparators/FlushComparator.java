@@ -20,10 +20,10 @@ public class FlushComparator implements HandComparator {
             return highCardComparator.compare(firstHand, secondHand);
         }
         if (firstHandIsFlush) {
-            return FIRST_HAND_WINS;
+            return FIRST_HAND_WIN;
         }
         if (secondHandIsFlush) {
-            return SECOND_HAND_WINS;
+            return SECOND_HAND_WIN;
         }
 
         return TIE;

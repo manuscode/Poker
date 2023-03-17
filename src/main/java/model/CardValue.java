@@ -1,5 +1,8 @@
 package model;
 
+import lombok.Getter;
+
+@Getter
 public enum CardValue {
 
     TWO(2),
@@ -16,9 +19,9 @@ public enum CardValue {
     KING(13),
     ACE(14);
 
-    private final int value;
+    private final int rank;
 
-    CardValue(int value) {
-        this.value = value;
+    CardValue(int rank) {
+        this.rank = rank;
     }
 }

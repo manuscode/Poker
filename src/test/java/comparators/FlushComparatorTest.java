@@ -61,7 +61,7 @@ class FlushComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(FIRST_HAND_WINS);
+        assertThat(result).isEqualTo(FIRST_HAND_WIN);
     }
 
     @Test
@@ -83,7 +83,7 @@ class FlushComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(SECOND_HAND_WINS);
+        assertThat(result).isEqualTo(SECOND_HAND_WIN);
     }
 
     @ParameterizedTest
