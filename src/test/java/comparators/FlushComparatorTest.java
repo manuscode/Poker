@@ -20,7 +20,7 @@ class FlushComparatorTest {
     private final FlushComparator testee = new FlushComparator(highCardComparator);
 
     @Test
-    void compare_shouldReturnTie_whenBothHandsAreNotFlush() {
+    void compare_shouldReturnTie_whenNoHandHasFlush() {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(SPADES, TEN),
