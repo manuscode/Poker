@@ -3,6 +3,7 @@ package comparators;
 import model.Card;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 
 import java.util.List;
@@ -86,8 +87,12 @@ class PairComparatorTest {
         assertThat(result).isEqualTo(SECOND_HAND_WIN);
     }
 
-    @Test
-    void compare_shouldReturnFirstHandWin_whenFirstHandHasHigherPair() {
+    @ParameterizedTest
+    @CsvSource({
+            "FIRST_HAND_WIN",
+            "SECOND_HAND_WIN"
+    })
+    void compare_shouldReturnFirstHandWin_whenFirstHandHasHigherPair(ComparisonResult comparisonResult) {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(SPADES, TEN),
@@ -103,33 +108,11 @@ class PairComparatorTest {
                 new Card(SPADES, ACE)
         );
 
-        var result = testee.compare(firstHand, secondHand);
-
-        assertThat(result).isEqualTo(FIRST_HAND_WIN);
-        verifyNoInteractions(highCardComparator);
-    }
-
-    @Test
-    void compare_shouldReturnSecondHandWin_whenSecondHandHasHigherPair() {
-        var firstHand = createHand(
-                new Card(CLUBS, ACE),
-                new Card(SPADES, TEN),
-                new Card(DIAMONDS, JACK),
-                new Card(HEARTS, TWO),
-                new Card(HEARTS, JACK)
-        );
-        var secondHand = createHand(
-                new Card(DIAMONDS, TWO),
-                new Card(SPADES, QUEEN),
-                new Card(HEARTS, THREE),
-                new Card(DIAMONDS, SIX),
-                new Card(SPADES, QUEEN)
-        );
+        when(highCardComparator.compareValues(eq(JACK), eq(SIX))).thenReturn(comparisonResult);
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(SECOND_HAND_WIN);
-        verifyNoInteractions(highCardComparator);
+        assertThat(result).isEqualTo(comparisonResult);
     }
 
     @ParameterizedTest
@@ -155,6 +138,7 @@ class PairComparatorTest {
         var firstHandCardList = firstHand.getCardList();
         var secdonHandCardList = secondHand.getCardList();
 
+        when(highCardComparator.compareValues(eq(JACK), eq(JACK))).thenReturn(TIE);
         when(highCardComparator.compareCardLists(
                 eq(List.of(
                         firstHandCardList.get(0),

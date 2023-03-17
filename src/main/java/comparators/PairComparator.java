@@ -43,21 +43,14 @@ public class PairComparator implements HandComparator {
             CardValue firstHandPairValue,
             CardValue secondHandPairValue
     ) {
-        var firstHandPairRank = firstHandPairValue.getRank();
-        var secondHandPairRank = secondHandPairValue.getRank();
+        var comparisonResult = highCardComparator.compareValues(firstHandPairValue, secondHandPairValue);
 
-        if (firstHandPairRank > secondHandPairRank) {
-            return FIRST_HAND_WIN;
-        } else if (secondHandPairRank > firstHandPairRank) {
-            return SECOND_HAND_WIN;
-        } else {
-            return compareRemainingCards(firstHand, secondHand, firstHandPairValue);
+        if (comparisonResult != TIE) {
+            return comparisonResult;
         }
-    }
 
-    private ComparisonResult compareRemainingCards(Hand firstHand, Hand secondHand, CardValue cardValue) {
-        var firstHandRemainingCards = getCardsExceptOfValue(firstHand, cardValue);
-        var secondHandRemainingCards = getCardsExceptOfValue(secondHand, cardValue);
+        var firstHandRemainingCards = getCardsExceptOfValue(firstHand, firstHandPairValue);
+        var secondHandRemainingCards = getCardsExceptOfValue(secondHand, firstHandPairValue);
 
         return highCardComparator.compareCardLists(firstHandRemainingCards, secondHandRemainingCards);
     }
