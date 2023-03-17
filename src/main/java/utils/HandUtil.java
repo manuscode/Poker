@@ -7,9 +7,9 @@ import model.Hand;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.groupingBy;
 
 public class HandUtil {
 
@@ -25,12 +25,12 @@ public class HandUtil {
 
     public static Map<CardValue, List<Card>> getCardsByValue(Hand hand) {
         return hand.getCardList().stream()
-                .collect(Collectors.groupingBy(Card::getValue));
+                .collect(groupingBy(Card::getValue));
     }
 
     public static Map<CardSuit, List<Card>> getCardsBySuit(Hand hand) {
         return hand.getCardList().stream()
-                .collect(Collectors.groupingBy(Card::getSuit));
+                .collect(groupingBy(Card::getSuit));
     }
 
     public static List<CardValue> toValueList(List<Card> cardList) {
