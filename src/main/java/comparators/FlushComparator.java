@@ -29,7 +29,7 @@ public class FlushComparator implements HandComparator {
         return TIE;
     }
 
-    private static boolean allCardsHaveSameSuit(Hand hand) {
+    public static boolean allCardsHaveSameSuit(Hand hand) {
         return getCardsBySuit(hand).size() == 1;
     }
 }
