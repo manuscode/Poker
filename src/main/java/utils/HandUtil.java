@@ -14,7 +14,7 @@ import static java.util.Comparator.comparingInt;
 public class HandUtil {
 
     public static List<Card> getCardsExceptOfValue(Hand hand, CardValue cardValue) {
-       return getCardsExceptOfValues(hand, List.of(cardValue));
+        return getCardsExceptOfValues(hand, List.of(cardValue));
     }
 
     public static List<Card> getCardsExceptOfValues(Hand hand, List<CardValue> cardValueList) {
@@ -37,6 +37,12 @@ public class HandUtil {
         return cardList.stream()
                 .map(Card::getValue)
                 .toList();
+    }
+
+    public static List<CardValue> sortedValueListByRank(Hand hand) {
+        return sortedValueListByRank(hand.getCardList().stream()
+                .map(Card::getValue)
+                .toList());
     }
 
     public static List<CardValue> sortedValueListByRank(List<CardValue> cardValueList) {
