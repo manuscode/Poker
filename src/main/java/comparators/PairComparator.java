@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import static comparators.ComparisonResult.*;
 import static utils.HandUtil.getCardsByValue;
-import static utils.HandUtil.getCardsExceptOfValue;
+import static utils.HandUtil.getCardsExceptOfValues;
 
 @AllArgsConstructor
 public class PairComparator implements HandComparator {
@@ -56,8 +56,8 @@ public class PairComparator implements HandComparator {
     }
 
     private ComparisonResult compareRemainingCards(Hand firstHand, Hand secondHand, CardValue cardValue) {
-        var firstHandRemainingCards = getCardsExceptOfValue(firstHand, cardValue);
-        var secondHandRemainingCards = getCardsExceptOfValue(secondHand, cardValue);
+        var firstHandRemainingCards = getCardsExceptOfValues(firstHand, cardValue);
+        var secondHandRemainingCards = getCardsExceptOfValues(secondHand, cardValue);
 
         return highCardComparator.compareCardLists(firstHandRemainingCards, secondHandRemainingCards);
     }

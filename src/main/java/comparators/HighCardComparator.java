@@ -1,12 +1,14 @@
 package comparators;
 
 import model.Card;
+import model.CardValue;
 import model.Hand;
 
 import java.util.List;
 
 import static comparators.ComparisonResult.*;
-import static utils.HandUtil.sortedCardListByRank;
+import static utils.HandUtil.sortedValueListByRank;
+import static utils.HandUtil.toValueList;
 
 public class HighCardComparator implements HandComparator {
 
@@ -16,12 +18,26 @@ public class HighCardComparator implements HandComparator {
     }
 
     public ComparisonResult compareCardLists(List<Card> firstHandCardList, List<Card> secondHandCardList) {
-        var firstHandSortedCardList = sortedCardListByRank(firstHandCardList);
-        var secondHandSortedCardList = sortedCardListByRank(secondHandCardList);
+        var firstHandValueList = toValueList(firstHandCardList);
+        var secondHandValueList = toValueList(secondHandCardList);
 
-        for (var index = 0; index < firstHandSortedCardList.size(); index++) {
-            var firstCardRank = firstHandSortedCardList.get(index).getValue().getRank();
-            var secondCardRank = secondHandSortedCardList.get(index).getValue().getRank();
+        return compareValueLists(firstHandValueList, secondHandValueList);
+    }
+
+    public ComparisonResult compareValueLists(List<CardValue> firstHandValueList, List<CardValue> secondHandValueList) {
+        var firstHandSortedValueList = sortedValueListByRank(firstHandValueList);
+        var secondHandSortedValueList = sortedValueListByRank(secondHandValueList);
+
+        return compareSortedValueLists(firstHandSortedValueList, secondHandSortedValueList);
+    }
+
+    private ComparisonResult compareSortedValueLists(
+            List<CardValue> firstHandSortedValueList,
+            List<CardValue> secondHandSortedValueList
+    ) {
+        for (var index = 0; index < firstHandSortedValueList.size(); index++) {
+            var firstCardRank = firstHandSortedValueList.get(index).getRank();
+            var secondCardRank = secondHandSortedValueList.get(index).getRank();
 
             if (firstCardRank > secondCardRank) {
                 return FIRST_HAND_WIN;
@@ -33,5 +49,4 @@ public class HighCardComparator implements HandComparator {
 
         return TIE;
     }
-
 }

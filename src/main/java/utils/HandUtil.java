@@ -5,16 +5,19 @@ import model.CardSuit;
 import model.CardValue;
 import model.Hand;
 
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.comparingInt;
+
 public class HandUtil {
 
-    public static List<Card> getCardsExceptOfValue(Hand hand, CardValue cardValue) {
+    public static List<Card> getCardsExceptOfValues(Hand hand, CardValue... cardValues) {
+        var cardValueFilterSet = Arrays.stream(cardValues).collect(Collectors.toSet());
         return hand.getCardList().stream()
-                .filter(card -> card.getValue() != cardValue)
+                .filter(card -> !cardValueFilterSet.contains(card.getValue()))
                 .toList();
     }
 
@@ -28,9 +31,15 @@ public class HandUtil {
                 .collect(Collectors.groupingBy(Card::getSuit));
     }
 
-    public static List<Card> sortedCardListByRank(List<Card> cardList) {
+    public static List<CardValue> toValueList(List<Card> cardList) {
         return cardList.stream()
-                .sorted(Comparator.<Card>comparingInt(card -> card.getValue().getRank()).reversed())
+                .map(Card::getValue)
+                .toList();
+    }
+
+    public static List<CardValue> sortedValueListByRank(List<CardValue> cardValueList) {
+        return cardValueList.stream()
+                .sorted(comparingInt(CardValue::getRank).reversed())
                 .toList();
     }
 
