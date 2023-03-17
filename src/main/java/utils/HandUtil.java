@@ -23,11 +23,7 @@ public class HandUtil {
                 .collect(Collectors.groupingBy(Card::getValue));
     }
 
-    public static boolean allCardsHaveSameSuit(Hand hand) {
-        return getCardsBySuit(hand).size() == 1;
-    }
-
-    private static Map<CardSuit, List<Card>> getCardsBySuit(Hand hand) {
+    public static Map<CardSuit, List<Card>> getCardsBySuit(Hand hand) {
         return hand.getCardList().stream()
                 .collect(Collectors.groupingBy(Card::getSuit));
     }

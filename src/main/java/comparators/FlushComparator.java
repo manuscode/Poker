@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import model.Hand;
 
 import static comparators.ComparisonResult.*;
-import static utils.HandUtil.allCardsHaveSameSuit;
+import static utils.HandUtil.getCardsBySuit;
 
 @AllArgsConstructor
 public class FlushComparator implements HandComparator {
@@ -27,5 +27,9 @@ public class FlushComparator implements HandComparator {
         }
 
         return TIE;
+    }
+
+    private static boolean allCardsHaveSameSuit(Hand hand) {
+        return getCardsBySuit(hand).size() == 1;
     }
 }
