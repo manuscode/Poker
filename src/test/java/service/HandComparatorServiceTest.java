@@ -12,7 +12,6 @@ import java.util.List;
 import static comparators.ComparisonResult.TIE;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 class HandComparatorServiceTest {
@@ -36,14 +35,14 @@ class HandComparatorServiceTest {
 
     @Test
     void compareHands_shouldReturnTie_whenAllHandComparatorsReturnTie() {
-        when(handComparator1.compare(eq(firstHand), eq(secondHand))).thenReturn(TIE);
-        when(handComparator2.compare(eq(firstHand), eq(secondHand))).thenReturn(TIE);
+        when(handComparator1.compare(firstHand, secondHand)).thenReturn(TIE);
+        when(handComparator2.compare(firstHand, secondHand)).thenReturn(TIE);
 
         var result = testee.compareHands(firstHand, secondHand);
 
         assertThat(result).isEqualTo(TIE);
-        verify(handComparator1).compare(eq(firstHand), eq(secondHand));
-        verify(handComparator2).compare(eq(firstHand), eq(secondHand));
+        verify(handComparator1).compare(firstHand, secondHand);
+        verify(handComparator2).compare(firstHand, secondHand);
     }
 
     @ParameterizedTest
@@ -54,7 +53,7 @@ class HandComparatorServiceTest {
     void compareHands_shouldReturnResultOfFirstHandComparator_whenFirstHandComparatorReturnsWin(
             ComparisonResult comparisonResult
     ) {
-        when(handComparator1.compare(eq(firstHand), eq(secondHand))).thenReturn(comparisonResult);
+        when(handComparator1.compare(firstHand, secondHand)).thenReturn(comparisonResult);
 
         var result = testee.compareHands(firstHand, secondHand);
 
@@ -70,12 +69,12 @@ class HandComparatorServiceTest {
     void compareHands_shouldReturnResultOfSecondHandComparator_whenFirstHandComparatorReturnsTie(
             ComparisonResult comparisonResult
     ) {
-        when(handComparator1.compare(eq(firstHand), eq(secondHand))).thenReturn(TIE);
-        when(handComparator2.compare(eq(firstHand), eq(secondHand))).thenReturn(comparisonResult);
+        when(handComparator1.compare(firstHand, secondHand)).thenReturn(TIE);
+        when(handComparator2.compare(firstHand, secondHand)).thenReturn(comparisonResult);
 
         var result = testee.compareHands(firstHand, secondHand);
 
         assertThat(result).isEqualTo(comparisonResult);
-        verify(handComparator1).compare(eq(firstHand), eq(secondHand));
+        verify(handComparator1).compare(firstHand, secondHand);
     }
 }

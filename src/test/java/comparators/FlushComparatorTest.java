@@ -10,7 +10,6 @@ import static model.CardSuit.*;
 import static model.CardValue.*;
 import static model.Hand.createHand;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -104,7 +103,7 @@ class FlushComparatorTest {
                 new Card(SPADES, JACK)
         );
 
-        when(highCardComparator.compare(eq(firstHand), eq(secondHand))).thenReturn(winnerOfHighCard);
+        when(highCardComparator.compare(firstHand, secondHand)).thenReturn(winnerOfHighCard);
 
         var result = testee.compare(firstHand, secondHand);
 

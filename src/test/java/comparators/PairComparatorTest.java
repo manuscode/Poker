@@ -108,7 +108,7 @@ class PairComparatorTest {
                 new Card(SPADES, ACE)
         );
 
-        when(highCardComparator.compareValues(eq(JACK), eq(SIX))).thenReturn(comparisonResult);
+        when(highCardComparator.compareValues(JACK, SIX)).thenReturn(comparisonResult);
 
         var result = testee.compare(firstHand, secondHand);
 
@@ -138,18 +138,16 @@ class PairComparatorTest {
         var firstHandCardList = firstHand.getCardList();
         var secdonHandCardList = secondHand.getCardList();
 
-        when(highCardComparator.compareValues(eq(JACK), eq(JACK))).thenReturn(TIE);
+        when(highCardComparator.compareValues(JACK, JACK)).thenReturn(TIE);
         when(highCardComparator.compareCardLists(
-                eq(List.of(
+                List.of(
                         firstHandCardList.get(0),
                         firstHandCardList.get(1),
-                        firstHandCardList.get(3))
-                ),
-                eq(List.of(
+                        firstHandCardList.get(3)),
+                List.of(
                         secdonHandCardList.get(0),
                         secdonHandCardList.get(2),
                         secdonHandCardList.get(3))
-                )
         )).thenReturn(comparisonResult);
 
         var result = testee.compare(firstHand, secondHand);
