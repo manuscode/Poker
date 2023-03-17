@@ -48,8 +48,8 @@ class HandComparatorServiceTest {
 
     @ParameterizedTest
     @CsvSource({
-            "FIRST_HAND_WINS",
-            "SECOND_HAND_WINS"
+            "FIRST_HAND_WIN",
+            "SECOND_HAND_WIN"
     })
     void compareHands_shouldReturnResultOfFirstHandComparator_whenFirstHandComparatorReturnsWin(
             ComparisonResult comparisonResult
@@ -64,8 +64,8 @@ class HandComparatorServiceTest {
 
     @ParameterizedTest
     @CsvSource({
-            "FIRST_HAND_WINS",
-            "SECOND_HAND_WINS"
+            "FIRST_HAND_WIN",
+            "SECOND_HAND_WIN"
     })
     void compareHands_shouldReturnResultOfSecondHandComparator_whenFirstHandComparatorReturnsTie(
             ComparisonResult comparisonResult
