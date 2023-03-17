@@ -22,7 +22,7 @@ class PairComparatorTest {
     private final PairComparator testee = new PairComparator(highCardComparator);
 
     @Test
-    void compare_shouldReturnTie_whenNoHandHasPairAndSameValues() {
+    void compare_shouldReturnTie_whenNoHandHasPair() {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(SPADES, TEN),
