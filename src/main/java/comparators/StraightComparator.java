@@ -35,7 +35,7 @@ public class StraightComparator implements HandComparator {
             return SECOND_HAND_WIN;
         }
 
-        return TIE;
+        return DRAW;
     }
 
     public static Optional<CardValue> extractStraightValue(Hand hand) {

@@ -20,7 +20,7 @@ class TwoPairsComparatorTest {
     private final TwoPairsComparator testee = new TwoPairsComparator(highCardComparator);
 
     @Test
-    void compare_shouldReturnTie_whenNoHandHasTwoPairs() {
+    void compare_shouldReturnDraw_whenNoHandHasTwoPairs() {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(SPADES, TEN),
@@ -38,7 +38,7 @@ class TwoPairsComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(TIE);
+        assertThat(result).isEqualTo(DRAW);
     }
 
     @Test
@@ -90,7 +90,7 @@ class TwoPairsComparatorTest {
             "FIRST_HAND_WIN",
             "SECOND_HAND_WIN"
     })
-    void compare_shouldReturnResultOfHighCardComparator_whenBothHandsHaveTwoPairsAndResultIsNotTie(
+    void compare_shouldReturnResultOfHighCardComparator_whenBothHandsHaveTwoPairsAndResultIsNotDraw(
             ComparisonResult comparisonResult
     ) {
         var firstHand = createHand(
@@ -118,7 +118,7 @@ class TwoPairsComparatorTest {
 
     @ParameterizedTest
     @EnumSource(ComparisonResult.class)
-    void compare_shouldReturnSecondResultOfHighCardComparator_whenFirstResultIsTie(
+    void compare_shouldReturnSecondResultOfHighCardComparator_whenFirstResultIsDraw(
             ComparisonResult comparisonResult
     ) {
         var firstHand = createHand(
@@ -136,7 +136,7 @@ class TwoPairsComparatorTest {
                 new Card(DIAMONDS, JACK)
         );
 
-        when(highCardComparator.compareValueLists(any(), any())).thenReturn(TIE);
+        when(highCardComparator.compareValueLists(any(), any())).thenReturn(DRAW);
         when(highCardComparator.compareCardLists(any(), any())).thenReturn(comparisonResult);
 
         var result = testee.compare(firstHand, secondHand);

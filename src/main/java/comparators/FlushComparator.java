@@ -26,7 +26,7 @@ public class FlushComparator implements HandComparator {
             return SECOND_HAND_WIN;
         }
 
-        return TIE;
+        return DRAW;
     }
 
     public static boolean allCardsHaveSameSuit(Hand hand) {

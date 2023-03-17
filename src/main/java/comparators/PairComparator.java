@@ -34,7 +34,7 @@ public class PairComparator implements HandComparator {
             return SECOND_HAND_WIN;
         }
 
-        return TIE;
+        return DRAW;
     }
 
     private ComparisonResult compareWhenBothHandsHavePair(
@@ -45,7 +45,7 @@ public class PairComparator implements HandComparator {
     ) {
         var comparisonResult = highCardComparator.compareValues(firstHandPairValue, secondHandPairValue);
 
-        if (comparisonResult != TIE) {
+        if (comparisonResult != DRAW) {
             return comparisonResult;
         }
 

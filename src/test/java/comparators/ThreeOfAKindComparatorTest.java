@@ -20,7 +20,7 @@ class ThreeOfAKindComparatorTest {
     private final ThreeOfAKindComparator testee = new ThreeOfAKindComparator(highCardComparator);
 
     @Test
-    void compare_shouldReturnTie_whenNoHandHasThreeOfAKind() {
+    void compare_shouldReturnDraw_whenNoHandHasThreeOfAKind() {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(SPADES, TEN),
@@ -38,7 +38,7 @@ class ThreeOfAKindComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(TIE);
+        assertThat(result).isEqualTo(DRAW);
 
     }
 

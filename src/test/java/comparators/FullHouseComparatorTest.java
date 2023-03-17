@@ -22,7 +22,7 @@ class FullHouseComparatorTest {
     private final FullHouseComparator testee = new FullHouseComparator(highCardComparator);
 
     @Test
-    void compare_shouldReturnTie_whenNoHandHasFullHouse() {
+    void compare_shouldReturnDraw_whenNoHandHasFullHouse() {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(SPADES, TEN),
@@ -40,7 +40,7 @@ class FullHouseComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(TIE);
+        assertThat(result).isEqualTo(DRAW);
     }
 
     @Test

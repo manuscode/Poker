@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.List;
 
-import static comparators.ComparisonResult.TIE;
+import static comparators.ComparisonResult.DRAW;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -25,22 +25,22 @@ class HandComparatorServiceTest {
     private HandComparatorService testee = new HandComparatorService(List.of(handComparator1, handComparator2));
 
     @Test
-    void compareHands_shouldReturnTie_whenHandComparatorListEmpty() {
+    void compareHands_shouldReturnDraw_whenHandComparatorListEmpty() {
         testee = new HandComparatorService(emptyList());
 
         var result = testee.compareHands(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(TIE);
+        assertThat(result).isEqualTo(DRAW);
     }
 
     @Test
-    void compareHands_shouldReturnTie_whenAllHandComparatorsReturnTie() {
-        when(handComparator1.compare(firstHand, secondHand)).thenReturn(TIE);
-        when(handComparator2.compare(firstHand, secondHand)).thenReturn(TIE);
+    void compareHands_shouldReturnDraw_whenAllHandComparatorsReturnDraw() {
+        when(handComparator1.compare(firstHand, secondHand)).thenReturn(DRAW);
+        when(handComparator2.compare(firstHand, secondHand)).thenReturn(DRAW);
 
         var result = testee.compareHands(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(TIE);
+        assertThat(result).isEqualTo(DRAW);
         verify(handComparator1).compare(firstHand, secondHand);
         verify(handComparator2).compare(firstHand, secondHand);
     }
@@ -66,10 +66,10 @@ class HandComparatorServiceTest {
             "FIRST_HAND_WIN",
             "SECOND_HAND_WIN"
     })
-    void compareHands_shouldReturnResultOfSecondHandComparator_whenFirstHandComparatorReturnsTie(
+    void compareHands_shouldReturnResultOfSecondHandComparator_whenFirstHandComparatorReturnsDraw(
             ComparisonResult comparisonResult
     ) {
-        when(handComparator1.compare(firstHand, secondHand)).thenReturn(TIE);
+        when(handComparator1.compare(firstHand, secondHand)).thenReturn(DRAW);
         when(handComparator2.compare(firstHand, secondHand)).thenReturn(comparisonResult);
 
         var result = testee.compareHands(firstHand, secondHand);

@@ -20,7 +20,7 @@ class StraightComparatorTest {
     private final StraightComparator testee = new StraightComparator(highCardComparator);
 
     @Test
-    void compare_shouldReturnTie_whenNoHandHasStraight() {
+    void compare_shouldReturnDraw_whenNoHandHasStraight() {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(SPADES, TEN),
@@ -38,7 +38,7 @@ class StraightComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(TIE);
+        assertThat(result).isEqualTo(DRAW);
     }
 
     @Test

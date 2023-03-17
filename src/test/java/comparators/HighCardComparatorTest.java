@@ -21,7 +21,7 @@ class HighCardComparatorTest {
     private final HighCardComparator testee = new HighCardComparator();
 
     @Test
-    void compare_shouldReturnTie_whenHandsConsistOfEqualValuedCards() {
+    void compare_shouldReturnDraw_whenHandsConsistOfEqualValuedCards() {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(SPADES, TEN),
@@ -39,7 +39,7 @@ class HighCardComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(TIE);
+        assertThat(result).isEqualTo(DRAW);
     }
 
     @Test

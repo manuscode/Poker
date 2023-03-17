@@ -20,7 +20,7 @@ class FlushComparatorTest {
     private final FlushComparator testee = new FlushComparator(highCardComparator);
 
     @Test
-    void compare_shouldReturnTie_whenNoHandHasFlush() {
+    void compare_shouldReturnDraw_whenNoHandHasFlush() {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(SPADES, TEN),
@@ -38,7 +38,7 @@ class FlushComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(TIE);
+        assertThat(result).isEqualTo(DRAW);
     }
 
     @Test

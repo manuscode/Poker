@@ -20,7 +20,7 @@ class StraightFlushComparatorTest {
     private final StraightFlushComparator testee = new StraightFlushComparator(highCardComparator);
 
     @Test
-    void compare_shouldReturnTie_whenNoHandHasStraightFlush() {
+    void compare_shouldReturnDraw_whenNoHandHasStraightFlush() {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(SPADES, TEN),
@@ -38,7 +38,7 @@ class StraightFlushComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(TIE);
+        assertThat(result).isEqualTo(DRAW);
     }
 
     @Test

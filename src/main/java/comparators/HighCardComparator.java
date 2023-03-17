@@ -54,6 +54,6 @@ public class HighCardComparator implements HandComparator {
             }
         }
 
-        return TIE;
+        return DRAW;
     }
 }
