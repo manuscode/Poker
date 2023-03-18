@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import model.CardValue;
 import model.Hand;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,16 +18,16 @@ public class FullHouseComparator implements HandComparator {
 
     @Override
     public ComparisonResult compare(Hand firstHand, Hand secondHand) {
-        var firstHandFullHouseValues = extractFullHouseValues(firstHand);
-        var secondHandFullHouseValues = extractFullHouseValues(secondHand);
+        var firstHandFullHouseValue = extractFullHouseValue(firstHand);
+        var secondHandFullHouseValue = extractFullHouseValue(secondHand);
 
-        var firstHandHasFullHouse = firstHandFullHouseValues.isPresent();
-        var secondHandHasFullHouse = secondHandFullHouseValues.isPresent();
+        var firstHandHasFullHouse = firstHandFullHouseValue.isPresent();
+        var secondHandHasFullHouse = secondHandFullHouseValue.isPresent();
 
         if (firstHandHasFullHouse && secondHandHasFullHouse) {
-            return highCardComparator.compareSortedValueLists(
-                    firstHandFullHouseValues.get(),
-                    secondHandFullHouseValues.get()
+            return highCardComparator.compareValues(
+                    firstHandFullHouseValue.get(),
+                    secondHandFullHouseValue.get()
             );
         }
         if (firstHandHasFullHouse) {
@@ -41,7 +40,7 @@ public class FullHouseComparator implements HandComparator {
         return NO_MATCH;
     }
 
-    private Optional<List<CardValue>> extractFullHouseValues(Hand hand) {
+    private Optional<CardValue> extractFullHouseValue(Hand hand) {
         var cardsByValue = getCardsByValue(hand);
 
         if (cardsByValue.size() != 2) {
@@ -54,9 +53,8 @@ public class FullHouseComparator implements HandComparator {
         ));
 
         var threeOfAKindValue = valueBySize.get(3);
-        var pairValue = valueBySize.get(2);
 
-        return Optional.of(List.of(threeOfAKindValue, pairValue));
+        return Optional.of(threeOfAKindValue);
     }
 
 }

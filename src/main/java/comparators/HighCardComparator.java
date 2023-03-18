@@ -38,7 +38,7 @@ public class HighCardComparator implements HandComparator {
         return compareSortedValueLists(firstHandSortedValueList, secondHandSortedValueList);
     }
 
-    public ComparisonResult compareSortedValueLists(
+    private ComparisonResult compareSortedValueLists(
             List<CardValue> firstHandSortedValueList,
             List<CardValue> secondHandSortedValueList
     ) {

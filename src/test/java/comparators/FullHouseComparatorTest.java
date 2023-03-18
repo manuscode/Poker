@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import java.util.List;
-
 import static comparators.ComparisonResult.*;
 import static model.CardSuit.*;
 import static model.CardValue.*;
@@ -105,8 +103,7 @@ class FullHouseComparatorTest {
                 new Card(SPADES, JACK)
         );
 
-        when(highCardComparator.compareSortedValueLists(List.of(EIGHT, TEN), List.of(TWO, JACK)))
-                .thenReturn(comparisonResult);
+        when(highCardComparator.compareValues(EIGHT, TWO)).thenReturn(comparisonResult);
 
         var result = testee.compare(firstHand, secondHand);
 
