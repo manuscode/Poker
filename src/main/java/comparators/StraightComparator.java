@@ -39,9 +39,9 @@ public class StraightComparator implements HandComparator {
     }
 
     public static Optional<CardValue> extractStraightValue(Hand hand) {
-        var cardsByValue = getCardsByValue(hand);
+        var cardsByValueMap = getCardsByValue(hand);
 
-        if (cardsByValue.size() != 5) {
+        if (cardsByValueMap.size() != 5) {
             return Optional.empty();
         }
 

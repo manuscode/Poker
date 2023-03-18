@@ -41,18 +41,18 @@ public class FullHouseComparator implements HandComparator {
     }
 
     private Optional<CardValue> extractFullHouseValue(Hand hand) {
-        var cardsByValue = getCardsByValue(hand);
+        var cardsByValueMap = getCardsByValue(hand);
 
-        if (cardsByValue.size() != 2) {
+        if (cardsByValueMap.size() != 2) {
             return Optional.empty();
         }
 
-        var valueBySize = cardsByValue.entrySet().stream().collect(toMap(
+        var valueBySizeMap = cardsByValueMap.entrySet().stream().collect(toMap(
                 entry -> entry.getValue().size(),
                 Map.Entry::getKey
         ));
 
-        var threeOfAKindValue = valueBySize.get(3);
+        var threeOfAKindValue = valueBySizeMap.get(3);
 
         return Optional.of(threeOfAKindValue);
     }
