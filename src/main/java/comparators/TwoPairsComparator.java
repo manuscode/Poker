@@ -34,7 +34,7 @@ public class TwoPairsComparator implements HandComparator {
             return SECOND_HAND_WIN;
         }
 
-        return DRAW;
+        return NO_MATCH;
     }
 
     private ComparisonResult compareWhenBothHandsHaveTwoPairs(

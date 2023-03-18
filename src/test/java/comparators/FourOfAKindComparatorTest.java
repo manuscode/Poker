@@ -20,7 +20,7 @@ class FourOfAKindComparatorTest {
     private final FourOfAKindComparator testee = new FourOfAKindComparator(highCardComparator);
 
     @Test
-    void compare_shouldReturnDraw_whenNoHandsHaveFourOfAKind() {
+    void compare_shouldReturnNoMatch_whenNoHandsHaveFourOfAKind() {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(SPADES, TEN),
@@ -38,7 +38,7 @@ class FourOfAKindComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(DRAW);
+        assertThat(result).isEqualTo(NO_MATCH);
     }
 
     @Test

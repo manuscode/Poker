@@ -38,7 +38,7 @@ public class FullHouseComparator implements HandComparator {
             return SECOND_HAND_WIN;
         }
 
-        return DRAW;
+        return NO_MATCH;
     }
 
     private Optional<List<CardValue>> extractFullHouseValues(Hand hand) {

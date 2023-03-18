@@ -36,7 +36,7 @@ public class FourOfAKindComparator implements HandComparator {
             return SECOND_HAND_WIN;
         }
 
-        return DRAW;
+        return NO_MATCH;
     }
 
     private static Optional<CardValue> extractFourOfAKindValue(Hand hand) {

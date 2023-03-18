@@ -8,6 +8,7 @@ import model.Hand;
 import java.util.List;
 
 import static comparators.ComparisonResult.DRAW;
+import static comparators.ComparisonResult.NO_MATCH;
 
 @AllArgsConstructor
 public class HandComparatorService {
@@ -18,7 +19,7 @@ public class HandComparatorService {
 
         for (HandComparator handComparator : orderedHandComparatorList) {
             var comparisonResult = handComparator.compare(firstHand, secondHand);
-            if (comparisonResult != DRAW) {
+            if (comparisonResult != NO_MATCH) {
                 return comparisonResult;
             }
         }

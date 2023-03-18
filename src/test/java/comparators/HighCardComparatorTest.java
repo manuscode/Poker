@@ -110,7 +110,7 @@ class HighCardComparatorTest {
 
     @ParameterizedTest
     @CsvSource({
-            "'ACE,KING,QUEEN,JACK,TEN'  , 'TEN,JACK,QUEEN,KING,ACE'  , TIE",
+            "'ACE,KING,QUEEN,JACK,TEN'  , 'TEN,JACK,QUEEN,KING,ACE'  , DRAW",
             "'NINE,EIGHT,SEVEN,SIX,FIVE', 'SEVEN,TEN,JACK,KING,THREE', SECOND_HAND_WIN",
             "'FOUR,FOUR,THREE,THREE,TWO', 'FOUR,FOUR,THREE,TWO,TWO'  , FIRST_HAND_WIN",
             "'FOUR,FOUR,SIX,THREE,THREE', 'FIVE,FIVE,FOUR,FOUR,TWO'  , FIRST_HAND_WIN",
@@ -130,7 +130,7 @@ class HighCardComparatorTest {
 
     @ParameterizedTest
     @CsvSource({
-            "ACE, ACE, TIE",
+            "ACE, ACE, DRAW",
             "THREE, TWO, FIRST_HAND_WIN",
             "TEN, JACK, SECOND_HAND_WIN",
     })
@@ -146,7 +146,7 @@ class HighCardComparatorTest {
 
     @ParameterizedTest
     @CsvSource({
-            "ACE, ACE, TIE",
+            "ACE, ACE, DRAW",
             "ACE, TEN, FIRST_HAND_WIN",
             "TEN, ACE, SECOND_HAND_WIN",
             "'TEN,JACK,TWO'   , 'JACK,JACK,KING' , SECOND_HAND_WIN",

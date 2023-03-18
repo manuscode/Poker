@@ -20,7 +20,7 @@ class TwoPairsComparatorTest {
     private final TwoPairsComparator testee = new TwoPairsComparator(highCardComparator);
 
     @Test
-    void compare_shouldReturnDraw_whenNoHandHasTwoPairs() {
+    void compare_shouldReturnNoMatch_whenNoHandHasTwoPairs() {
         var firstHand = createHand(
                 new Card(CLUBS, ACE),
                 new Card(SPADES, TEN),
@@ -38,7 +38,7 @@ class TwoPairsComparatorTest {
 
         var result = testee.compare(firstHand, secondHand);
 
-        assertThat(result).isEqualTo(DRAW);
+        assertThat(result).isEqualTo(NO_MATCH);
     }
 
     @Test

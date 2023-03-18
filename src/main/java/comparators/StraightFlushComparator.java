@@ -36,7 +36,7 @@ public class StraightFlushComparator implements HandComparator {
             return SECOND_HAND_WIN;
         }
 
-        return DRAW;
+        return NO_MATCH;
     }
 
     private Optional<CardValue> extractStraightFlushValue(Hand hand) {

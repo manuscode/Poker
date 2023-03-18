@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.List;
 
 import static comparators.ComparisonResult.DRAW;
+import static comparators.ComparisonResult.NO_MATCH;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -34,9 +35,9 @@ class HandComparatorServiceTest {
     }
 
     @Test
-    void compareHands_shouldReturnDraw_whenAllHandComparatorsReturnDraw() {
-        when(handComparator1.compare(firstHand, secondHand)).thenReturn(DRAW);
-        when(handComparator2.compare(firstHand, secondHand)).thenReturn(DRAW);
+    void compareHands_shouldReturnDraw_whenAllHandComparatorsReturnNoMatch() {
+        when(handComparator1.compare(firstHand, secondHand)).thenReturn(NO_MATCH);
+        when(handComparator2.compare(firstHand, secondHand)).thenReturn(NO_MATCH);
 
         var result = testee.compareHands(firstHand, secondHand);
 
@@ -66,10 +67,10 @@ class HandComparatorServiceTest {
             "FIRST_HAND_WIN",
             "SECOND_HAND_WIN"
     })
-    void compareHands_shouldReturnResultOfSecondHandComparator_whenFirstHandComparatorReturnsDraw(
+    void compareHands_shouldReturnResultOfSecondHandComparator_whenFirstHandComparatorReturnsNoMatch(
             ComparisonResult comparisonResult
     ) {
-        when(handComparator1.compare(firstHand, secondHand)).thenReturn(DRAW);
+        when(handComparator1.compare(firstHand, secondHand)).thenReturn(NO_MATCH);
         when(handComparator2.compare(firstHand, secondHand)).thenReturn(comparisonResult);
 
         var result = testee.compareHands(firstHand, secondHand);
